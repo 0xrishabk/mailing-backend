@@ -1,6 +1,11 @@
 export const __esModule: boolean;
 export namespace Prisma {
-    let TransactionIsolationLevel: any;
+    namespace TransactionIsolationLevel {
+        let ReadUncommitted: string;
+        let ReadCommitted: string;
+        let RepeatableRead: string;
+        let Serializable: string;
+    }
     namespace UserScalarFieldEnum {
         let id: string;
         let username: string;
@@ -115,32 +120,22 @@ export namespace Prisma {
     }
 }
 export namespace $Enums {
-    namespace EmployeeStatus {
-        let INACTIVE: string;
-        let ACTIVE: string;
-        let LEFT: string;
-        let ON_BREAK: string;
-    }
     namespace Role {
         let STUDENT: string;
         let TEACHER: string;
         let MANAGEMENT: string;
         let ADMIN: string;
     }
+    namespace EmployeeStatus {
+        let INACTIVE: string;
+        let ACTIVE: string;
+        let LEFT: string;
+        let ON_BREAK: string;
+    }
     namespace MailingStatus {
         let SENT: string;
         let ERROR: string;
     }
-}
-export namespace EmployeeStatus {
-    let INACTIVE_1: string;
-    export { INACTIVE_1 as INACTIVE };
-    let ACTIVE_1: string;
-    export { ACTIVE_1 as ACTIVE };
-    let LEFT_1: string;
-    export { LEFT_1 as LEFT };
-    let ON_BREAK_1: string;
-    export { ON_BREAK_1 as ON_BREAK };
 }
 export namespace Role {
     let STUDENT_1: string;
@@ -151,6 +146,16 @@ export namespace Role {
     export { MANAGEMENT_1 as MANAGEMENT };
     let ADMIN_1: string;
     export { ADMIN_1 as ADMIN };
+}
+export namespace EmployeeStatus {
+    let INACTIVE_1: string;
+    export { INACTIVE_1 as INACTIVE };
+    let ACTIVE_1: string;
+    export { ACTIVE_1 as ACTIVE };
+    let LEFT_1: string;
+    export { LEFT_1 as LEFT };
+    let ON_BREAK_1: string;
+    export { ON_BREAK_1 as ON_BREAK };
 }
 export namespace MailingStatus {
     let SENT_1: string;
@@ -163,40 +168,78 @@ export namespace Prisma {
         let client: string;
         let engine: string;
     }
-    export { PrismaClientKnownRequestError };
-    export { PrismaClientUnknownRequestError };
-    export { PrismaClientRustPanicError };
-    export { PrismaClientInitializationError };
-    export { PrismaClientValidationError };
+    export function PrismaClientKnownRequestError(): never;
+    export function PrismaClientUnknownRequestError(): never;
+    export function PrismaClientRustPanicError(): never;
+    export function PrismaClientInitializationError(): never;
+    export function PrismaClientValidationError(): never;
     export { Decimal };
-    export { sqltag as sql };
-    export { empty };
-    export { join };
-    export { raw };
-    export let validator: any;
-    export let getExtensionContext: any;
-    export let defineExtension: any;
-    export let DbNull: any;
-    export let JsonNull: any;
-    export let AnyNull: any;
+    /**
+     * Re-export of sql-template-tag
+     */
+    export function sql(): never;
+    export function empty(): never;
+    export function join(): never;
+    export function raw(): never;
+    export let validator: typeof Public.validator;
+    /**
+    * Extensions
+    */
+    export function getExtensionContext(): never;
+    export function defineExtension(): never;
+    export let DbNull: {
+        #private: any;
+        _getNamespace(): string;
+        _getName(): string;
+        toString(): string;
+    };
+    export let JsonNull: {
+        #private: any;
+        _getNamespace(): string;
+        _getName(): string;
+        toString(): string;
+    };
+    export let AnyNull: {
+        #private: any;
+        _getNamespace(): string;
+        _getName(): string;
+        toString(): string;
+    };
     export namespace NullTypes {
-        let DbNull_1: any;
+        let DbNull_1: {
+            new (arg?: symbol): {
+                #private: any;
+                _getNamespace(): string;
+                _getName(): string;
+                toString(): string;
+            };
+        };
         export { DbNull_1 as DbNull };
-        let JsonNull_1: any;
+        let JsonNull_1: {
+            new (arg?: symbol): {
+                #private: any;
+                _getNamespace(): string;
+                _getName(): string;
+                toString(): string;
+            };
+        };
         export { JsonNull_1 as JsonNull };
-        let AnyNull_1: any;
+        let AnyNull_1: {
+            new (arg?: symbol): {
+                #private: any;
+                _getNamespace(): string;
+                _getName(): string;
+                toString(): string;
+            };
+        };
         export { AnyNull_1 as AnyNull };
     }
 }
-export const PrismaClient: any;
-import { PrismaClientKnownRequestError } from "./runtime/edge.js";
-import { PrismaClientUnknownRequestError } from "./runtime/edge.js";
-import { PrismaClientRustPanicError } from "./runtime/edge.js";
-import { PrismaClientInitializationError } from "./runtime/edge.js";
-import { PrismaClientValidationError } from "./runtime/edge.js";
-import { Decimal } from "./runtime/edge.js";
-import { sqltag } from "./runtime/edge.js";
-import { empty } from "./runtime/edge.js";
-import { join } from "./runtime/edge.js";
-import { raw } from "./runtime/edge.js";
-//# sourceMappingURL=edge.d.ts.map
+/**
+ * This is a stub Prisma Client that will error at runtime if called.
+ */
+export class PrismaClient {
+}
+import { Decimal } from "./runtime/index-browser.js";
+import { Public } from "./runtime/index-browser.js";
+//# sourceMappingURL=index-browser.d.ts.map

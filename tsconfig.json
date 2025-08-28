@@ -7,7 +7,7 @@
     "target": "esnext",
 
     "lib": ["ES6"],
-    "types": ["node", "@prisma/client", "express", "jsonwebtoken", "dotenv"],
+    "types": ["node"],
 
     "sourceMap": true,
     "declaration": true,

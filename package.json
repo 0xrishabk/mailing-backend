@@ -7,16 +7,22 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "dev": "nodemon",
     "test": "tsc --esModuleInterop --noEmit -p tsconfig.json",
     "build": "tsc --esModuleInterop -p tsconfig.json",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
     "prisma": "^6.15.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {

@@ -1,3 +1,3 @@
 declare const _exports: any;
 export = _exports;
-//# sourceMappingURL=library.d.ts.map
+//# sourceMappingURL=wasm-compiler-edge.d.ts.map
