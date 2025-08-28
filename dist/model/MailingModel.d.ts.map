@@ -1,0 +1,1 @@
+{"version":3,"file":"MailingModel.d.ts","sourceRoot":"","sources":["../../src/model/MailingModel.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,iBAAiB;IAChC,OAAO,EAAE,MAAM,CAAC;IAChB,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,MAAM,CAAC;IAChB,UAAU,EAAE,MAAM,EAAE,CAAC;CACtB"}

@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  //output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EmployeeStatus {
+  INACTIVE
+  ACTIVE
+  LEFT
+  ON_BREAK
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  MANAGEMENT
+  ADMIN
+}
+
+enum MailingStatus {
+  SENT
+  ERROR
+}
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  email String @unique
+  password String
+  permission Int @default(1)
+  role Role @default(STUDENT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Batch {
+  id Int @id @default(autoincrement())
+  year String @unique
+
+  contactStudents ContactStudents[]
+  contactTeachers ContactTeachers[] @relation("ContactTeachersBatches")
+  contactManagement ContactManagement[] @relation("ContactManagementBatches")
+}
+
+model Faculty {
+  id Int @id @default(autoincrement())
+  name String
+
+  contactStudents ContactStudents[]
+  contactTeachers ContactTeachers[] @relation("ContactTeachersFaculties")
+  contactManagement ContactManagement[] @relation("ContactManagementFaculties")
+}
+
+model ContactStudents {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  phone String
+  faculty Faculty @relation(fields: [facultyId], references: [id])
+  facultyId Int
+  batch Batch @relation(fields: [batchId], references: [id])
+  batchId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactTeachers {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  phone String
+  faculties Faculty[] @relation("ContactTeachersFaculties")
+  batches Batch[] @relation("ContactTeachersBatches")
+  status EmployeeStatus
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactManagement {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  phone String
+  faculties Faculty[] @relation("ContactManagementFaculties")
+  batches Batch[] @relation("ContactManagementBatches")
+  status EmployeeStatus
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Mailing {
+  id Int @id @default(autoincrement())
+  replyTo String
+  subject String
+  content String
+
+  createdAt DateTime @default(now())
+
+  recipients Recipient[]
+}
+
+model Recipient {
+  id Int @id @default(autoincrement())
+  mailing Mailing @relation(fields: [mailingId], references: [id])
+  mailingId Int
+  email String
+  status MailingStatus @default(ERROR)
+}
+
+model Token {
+  token String @unique
+  isValid Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
