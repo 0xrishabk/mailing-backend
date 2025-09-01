@@ -1,26 +1,18 @@
 import { Router, type Request, type Response } from 'express';
+import { createContactHandler, getContactsHandler, getTeacherContactsHandler } from '../controller/contactController.js';
+import { getManagementContacts, getStudentContacts } from '../service/contactService.js';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
-  // Controller to gather all the contacts.
-});
+router.get('/', getContactsHandler);
 
-router.get('/students', async (req: Request, res: Response) => {
-  // Controller to gather contact for all the students.
-});
+router.get('/students', getStudentContacts);
 
-router.get('/teachers', async (req: Request, res: Response) => {
-  // Controller to gather contact for all the teachers.
-});
+router.get('/teachers', getTeacherContactsHandler);
 
-router.get('/management', async (req: Request, res: Response) => {
-  // Controller to gather contact for all the management.
-});
+router.get('/management', getManagementContacts);
 
-router.post('/', async (req: Request, res: Response) => {
-  // Controller to create a new contact. 
-});
+router.post('/', createContactHandler);
 
 router.put('/:id', async (req: Request, res: Response) => {
   // Controller to update a contact list.

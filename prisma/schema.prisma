@@ -51,7 +51,6 @@ model Batch {
 
   contactStudents ContactStudents[]
   contactTeachers ContactTeachers[] @relation("ContactTeachersBatches")
-  contactManagement ContactManagement[] @relation("ContactManagementBatches")
 }
 
 model Faculty {
@@ -63,63 +62,62 @@ model Faculty {
   contactManagement ContactManagement[] @relation("ContactManagementFaculties")
 }
 
-model ContactStudents {
+model Contact {
   id Int @id @default(autoincrement())
   name String
   email String
   phone String
-  faculty Faculty @relation(fields: [facultyId], references: [id])
-  facultyId Int
-  batch Batch @relation(fields: [batchId], references: [id])
-  batchId Int
-
+  type ContactType
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  student ContactStudents?
+  teacher ContactTeachers?
+  management ContactManagement?
+
+  mailContact Mail[] @relation("MailContact")
+}
+
+enum ContactType {
+  GENERAL
+  STUDENT
+  TEACHER
+  MANAGEMENT
+}
+
+model ContactStudents {
+  contactId Int @id
+  facultyId Int
+  batchId Int
+  contact Contact @relation(fields: [contactId], references: [id])
+  faculty Faculty @relation(fields: [facultyId], references: [id])
+  batch Batch @relation(fields: [batchId], references: [id])
 }
 
 model ContactTeachers {
-  id Int @id @default(autoincrement())
-  name String
-  email String
-  phone String
+  contactId Int @id
+  status EmployeeStatus
+  contact Contact @relation(fields: [contactId], references: [id])
   faculties Faculty[] @relation("ContactTeachersFaculties")
   batches Batch[] @relation("ContactTeachersBatches")
-  status EmployeeStatus
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model ContactManagement {
-  id Int @id @default(autoincrement())
-  name String
-  email String
-  phone String
-  faculties Faculty[] @relation("ContactManagementFaculties")
-  batches Batch[] @relation("ContactManagementBatches")
+  contactId Int @id
   status EmployeeStatus
+  contact Contact @relation(fields: [contactId], references: [id])
+  faculties Faculty[] @relation("ContactManagementFaculties")
+}
 
+model Mail {
+  id Int @id @default(autoincrement())
+  subject String
+  body String
+  isDraft Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
 
-model Mailing {
-  id Int @id @default(autoincrement())
-  replyTo String
-  subject String
-  content String
-
-  createdAt DateTime @default(now())
-
-  recipients Recipient[]
-}
-
-model Recipient {
-  id Int @id @default(autoincrement())
-  mailing Mailing @relation(fields: [mailingId], references: [id])
-  mailingId Int
-  email String
-  status MailingStatus @default(ERROR)
+  recipient Contact[] @relation("MailContact")
 }
 
 model Token {
