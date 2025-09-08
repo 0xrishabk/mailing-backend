@@ -74,8 +74,6 @@ model Contact {
   student ContactStudents?
   teacher ContactTeachers?
   management ContactManagement?
-
-  mailContact Mail[] @relation("MailContact")
 }
 
 enum ContactType {
@@ -111,13 +109,13 @@ model ContactManagement {
 
 model Mail {
   id Int @id @default(autoincrement())
+  replyTo String[]
+  recipient String[]
   subject String
   body String
   isDraft Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  recipient Contact[] @relation("MailContact")
 }
 
 model Token {
