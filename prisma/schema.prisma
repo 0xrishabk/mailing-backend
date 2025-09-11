@@ -115,13 +115,20 @@ enum ContactType {
 
 model Mail {
   id Int @id @default(autoincrement())
-  replyTo String[]
-  recipient String[]
   subject String
   body String
-  isDraft Boolean @default(false)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  mail MailRecipient[]
+}
+
+model MailRecipient {
+  id Int @id @default(autoincrement())
+  mailId Int
+  email String
+  type String
+
+  mail Mail @relation(fields: [mailId], references: [id])
 }
 
 model Token {
