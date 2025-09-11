@@ -49,17 +49,19 @@ model Batch {
   id Int @id @default(autoincrement())
   year String @unique
 
-  contactStudents ContactStudents[]
-  contactTeachers ContactTeachers[] @relation("ContactTeachersBatches")
+  contact Contact[] @relation("ContactBatch")
+  // contactStudents ContactStudents[]
+  // contactTeachers ContactTeachers[] @relation("ContactTeachersBatches")
 }
 
 model Faculty {
   id Int @id @default(autoincrement())
   name String
 
-  contactStudents ContactStudents[]
-  contactTeachers ContactTeachers[] @relation("ContactTeachersFaculties")
-  contactManagement ContactManagement[] @relation("ContactManagementFaculties")
+  contact Contact[] @relation("ContactFaculty")
+  // contactStudents ContactStudents[]
+  // contactTeachers ContactTeachers[] @relation("ContactTeachersFaculties")
+  // contactManagement ContactManagement[] @relation("ContactManagementFaculties")
 }
 
 model Contact {
@@ -68,12 +70,16 @@ model Contact {
   email String
   phone String
   type ContactType
+
+  batch Batch[] @relation("ContactBatch")
+  faculty Faculty[] @relation("ContactFaculty")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  student ContactStudents?
-  teacher ContactTeachers?
-  management ContactManagement?
+  // student ContactStudents?
+  // teacher ContactTeachers?
+  // management ContactManagement?
 }
 
 enum ContactType {
@@ -83,29 +89,29 @@ enum ContactType {
   MANAGEMENT
 }
 
-model ContactStudents {
-  contactId Int @id
-  facultyId Int
-  batchId Int
-  contact Contact @relation(fields: [contactId], references: [id])
-  faculty Faculty @relation(fields: [facultyId], references: [id])
-  batch Batch @relation(fields: [batchId], references: [id])
-}
+// model ContactStudents {
+//   contactId Int @id
+//   facultyId Int
+//   batchId Int
+//   contact Contact @relation(fields: [contactId], references: [id])
+//   faculty Faculty @relation(fields: [facultyId], references: [id])
+//   batch Batch @relation(fields: [batchId], references: [id])
+// }
 
-model ContactTeachers {
-  contactId Int @id
-  status EmployeeStatus
-  contact Contact @relation(fields: [contactId], references: [id])
-  faculties Faculty[] @relation("ContactTeachersFaculties")
-  batches Batch[] @relation("ContactTeachersBatches")
-}
+// model ContactTeachers {
+//   contactId Int @id
+//   status EmployeeStatus
+//   contact Contact @relation(fields: [contactId], references: [id])
+//   faculties Faculty[] @relation("ContactTeachersFaculties")
+//   batches Batch[] @relation("ContactTeachersBatches")
+// }
 
-model ContactManagement {
-  contactId Int @id
-  status EmployeeStatus
-  contact Contact @relation(fields: [contactId], references: [id])
-  faculties Faculty[] @relation("ContactManagementFaculties")
-}
+// model ContactManagement {
+//   contactId Int @id
+//   status EmployeeStatus
+//   contact Contact @relation(fields: [contactId], references: [id])
+//   faculties Faculty[] @relation("ContactManagementFaculties")
+// }
 
 model Mail {
   id Int @id @default(autoincrement())
@@ -119,6 +125,7 @@ model Mail {
 }
 
 model Token {
+  id Int @id @default(autoincrement())
   token String @unique
   isValid Boolean @default(true)
 

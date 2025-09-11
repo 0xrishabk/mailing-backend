@@ -5,3 +5,7 @@ export interface ApiResponse {
   errors?: any;
   timestamp: string;
 }
+
+export interface ContactResponse extends ApiResponse {
+  count?: number;
+}
