@@ -3,12 +3,9 @@ import { asyncHandler } from "../util/asyncHandler.js";
 import type { ApiResponse } from "../model/ResponseModel.js";
 import {
   getContacts,
-  getStudentContacts,
-  getTeacherContacts,
-  getManagementContacts,
   createContact
 } from "../service/contactService.js";
-import z, { email } from "zod";
+import z from "zod";
 import { ValidationError } from "../errors/AppError.js";
 import { ContactType } from "@prisma/client";
 
@@ -40,6 +37,29 @@ const createContactHandler = asyncHandler(async (req: Request, res: Response) =>
   return res.status(201).json(response);
 });
 
+const getContactsHandler = asyncHandler(async (req: Request, res: Response) => {
+  const result = z.object({
+    role: z.enum(['STUDENT', 'TEACHER', 'MANAGEMENT', 'ADMIN']).optional(),
+  }).safeParse(req.query);
+
+  if (!result.success) {
+    throw new ValidationError("Invalid request.");
+  }
+
+  const type = result.data.role;
+
+  const contacts = await getContacts(type);
+
+  const response: ApiResponse = {
+    success: true,
+    message: "Successfully created contacts.",
+    data: contacts,
+    timestamp: new Date().toISOString(),
+  };
+  return res.status(200).json(response);
+});
+
+/* 
 const getContactsHandler = asyncHandler(async (_req: Request, res: Response) => {
   const contacts = await getContacts();
   const response: ApiResponse = {
@@ -83,11 +103,8 @@ const getManagementContactsHandler = asyncHandler(async (_req: Request, res: Res
   };
   return res.status(200).json(response);
 });
-
+ */
 export {
   createContactHandler,
   getContactsHandler,
-  getStudentContactsHandler,
-  getTeacherContactsHandler,
-  getManagementContactsHandler
 };

@@ -14,46 +14,13 @@ const createContact = async (name: string, email: string, phone: string, type: C
   return contact;
 };
 
-const getContacts = async () => {
-  const contacts = await prisma.contact.findMany({});
-  if (contacts.length == 0) {
-    throw new NotFoundError("No contacts found please add one.");
-  }
-  return contacts;
-};
-
-const getStudentContacts = async () => {
+const getContacts = async (type: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER" | undefined) => {
   const contacts = await prisma.contact.findMany({
-    where: {
-      type: 'STUDENT',
-    },
+    where: type ? { type: type as ContactType } : {},
   });
-  if (contacts.length == 0) {
-    throw new NotFoundError("No students contacts were found.");
-  }
-  return contacts;
-};
 
-const getTeacherContacts = async () => {
-  const contacts = await prisma.contact.findMany({
-    where: {
-      type: 'TEACHER',
-    },
-  });
-  if (contacts.length == 0) {
-    throw new NotFoundError("No teachers were found.");
-  }
-  return contacts;
-};
-
-const getManagementContacts = async () => {
-  const contacts = await prisma.contact.findMany({
-    where: {
-      type: 'MANAGEMENT',
-    },
-  });
-  if (contacts.length == 0) {
-    throw new NotFoundError("No management were found.");
+  if (contacts.length === 0) {
+    throw new NotFoundError("No contacts were found.");
   }
   return contacts;
 };
@@ -61,7 +28,4 @@ const getManagementContacts = async () => {
 export {
   createContact,
   getContacts,
-  getStudentContacts,
-  getTeacherContacts,
-  getManagementContacts
 };

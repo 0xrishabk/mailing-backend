@@ -15,7 +15,7 @@ const getUsers = async () => {
       updatedAt: true,
     },
   });
-  if (users.length == 0) {
+  if (users.length === 0) {
     throw new NotFoundError("No users were found in the database");
   }
   return users;

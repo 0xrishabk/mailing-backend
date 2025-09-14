@@ -1,60 +1,21 @@
-declare const getContacts: () => Promise<{
-    studentContacts: {
-        email: string;
-        id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        name: string;
-        phone: string;
-        facultyId: number;
-        batchId: number;
-    }[];
-    teacherContacts: {
-        email: string;
-        id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        name: string;
-        phone: string;
-        status: import("@prisma/client").$Enums.EmployeeStatus;
-    }[];
-    managementContacts: {
-        email: string;
-        id: number;
-        createdAt: Date;
-        updatedAt: Date;
-        name: string;
-        phone: string;
-        status: import("@prisma/client").$Enums.EmployeeStatus;
-    }[];
+import { ContactType } from "@prisma/client";
+declare const createContact: (name: string, email: string, phone: string, type: ContactType) => Promise<{
+    type: import("@prisma/client").$Enums.ContactType;
+    email: string;
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    phone: string;
 }>;
-declare const getStudentContacts: () => Promise<{
+declare const getContacts: (type: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER" | undefined) => Promise<{
+    type: import("@prisma/client").$Enums.ContactType;
     email: string;
     id: number;
     createdAt: Date;
     updatedAt: Date;
     name: string;
     phone: string;
-    facultyId: number;
-    batchId: number;
 }[]>;
-declare const getTeacherContacts: () => Promise<{
-    email: string;
-    id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    name: string;
-    phone: string;
-    status: import("@prisma/client").$Enums.EmployeeStatus;
-}[]>;
-declare const getManagementContacts: () => Promise<{
-    email: string;
-    id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    name: string;
-    phone: string;
-    status: import("@prisma/client").$Enums.EmployeeStatus;
-}[]>;
-export { getContacts, getStudentContacts, getTeacherContacts, getManagementContacts };
+export { createContact, getContacts, };
 //# sourceMappingURL=contactService.d.ts.map

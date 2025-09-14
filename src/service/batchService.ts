@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors/AppError.js";
 
 const getBatches = async () => {
   const batches = await prisma.batch.findMany();
-  if (!batches) {
+  if (batches.length === 0) {
     throw new NotFoundError("No batch was found in the database.");
   }
   return batches;

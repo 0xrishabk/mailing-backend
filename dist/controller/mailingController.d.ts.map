@@ -1,1 +1,1 @@
-{"version":3,"file":"mailingController.d.ts","sourceRoot":"","sources":["../../src/controller/mailingController.ts"],"names":[],"mappings":""}
+{"version":3,"file":"mailingController.d.ts","sourceRoot":"","sources":["../../src/controller/mailingController.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAMhD,QAAA,MAAM,eAAe,GAAU,KAAK,OAAO,EAAE,KAAK,QAAQ,gDAuBzD,CAAC;AAEF,QAAA,MAAM,eAAe,GAAU,KAAK,OAAO,EAAE,KAAK,QAAQ,gDASzD,CAAC;AAEF,OAAO,EAAE,eAAe,EAAE,eAAe,EAAE,CAAC"}

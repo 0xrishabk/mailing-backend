@@ -6,11 +6,11 @@ const sendMail = async (subject: string, content: string, replyTo: string, to: s
 };
 
 const getMails = async () => {
-  const result = await prisma.mail.findMany();
-  if (!result) {
+  const mails = await prisma.mail.findMany();
+  if (mails.length == 0) {
     throw new NotFoundError("No mail found.");
   }
-  return result;
+  return mails;
 }
 
 export { sendMail, getMails };

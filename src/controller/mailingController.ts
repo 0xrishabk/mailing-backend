@@ -18,23 +18,23 @@ const sendMailHandler = async (req: Request, res: Response) => {
 
   const { subject, content, replyTo, to } = result.data;
 
-  const data = await sendMail(subject, content, replyTo, to);
+  const mail = await sendMail(subject, content, replyTo, to);
 
   const response: ApiResponse = {
     success: true,
     message: "Successfully sent mail.",
-    data,
+    data: mail,
     timestamp: new Date().toISOString(),
   };
   return res.status(200).json(response);
 };
 
 const getMailsHandler = async (req: Request, res: Response) => {
-  const data = await getMails();
+  const mails = await getMails();
   const response: ApiResponse = {
     success: true,
     message: "Successfully fetched the mail",
-    data,
+    data: mails,
     timestamp: new Date().toISOString(),
   };
   return res.status(200).json(response);

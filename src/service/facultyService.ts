@@ -3,7 +3,7 @@ import { NotFoundError } from "../errors/AppError.js";
 
 const getFaculties = async () => {
   const faculties = await prisma.faculty.findMany();
-  if (!faculties) {
+  if (faculties.length === 0) {
     throw new NotFoundError("There were no faculties to return in the record.");
   }
   return faculties;
