@@ -9,7 +9,7 @@ const getBatchesHandler = asyncHandler(async (_req: Request, res: Response) => {
   const batches = await getBatches();
   const response: ApiResponse = {
     success: true,
-    message: "Successfully retrieved the batch.",
+    message: "Successfully fetched batch.",
     data: batches,
     timestamp: new Date().toISOString(),
   };

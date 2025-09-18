@@ -59,6 +59,7 @@ model Faculty {
   name String @unique
 
   contact Contact[] @relation("ContactFaculty")
+
   // contactStudents ContactStudents[]
   // contactTeachers ContactTeachers[] @relation("ContactTeachersFaculties")
   // contactManagement ContactManagement[] @relation("ContactManagementFaculties")

@@ -3,7 +3,9 @@ import { asyncHandler } from "../util/asyncHandler.js";
 import type { ApiResponse } from "../model/ResponseModel.js";
 import {
   getContacts,
-  createContact
+  createContact,
+  updateContact,
+  deleteContact
 } from "../service/contactService.js";
 import z from "zod";
 import { ValidationError } from "../errors/AppError.js";
@@ -59,6 +61,53 @@ const getContactsHandler = asyncHandler(async (req: Request, res: Response) => {
   return res.status(200).json(response);
 });
 
+const updateContactHandler = asyncHandler(async (req: Request, res: Response) => {
+  const param = z.object({
+    id: z.number(),
+  }).safeParse(req.params);
+
+  if (!param.success) {
+    throw new ValidationError("Provide id in query");
+  }
+
+  const body = z.object({
+    name: z.string().optional(),
+    email: z.email().optional(),
+    phone: z.string().optional(),
+    type: z.enum(['STUDENT', 'TEACHER', 'MANAGEMENT', 'ADMIN']).optional()
+  }).safeDecode(req.body);
+
+  if (!body.success) {
+    throw new ValidationError("Provide valid input data.");
+  }
+
+  const id = param.data.id;
+
+  const { name, email, phone, type } = body.data;
+
+  const contact = await updateContact(id, name, email, phone, type);
+  const response: ApiResponse = {
+    success: true,
+    message: "Successfully updated the data",
+    data: contact,
+    timestamp: new Date().toISOString(),
+  };
+  return res.status(200).json(response);
+});
+
+const deleteContactHandler = asyncHandler(async (req: Request, res: Response) => {
+  const param = z.object({
+    id: z.number(),
+  }).safeParse(req.params);
+
+  if (!param.success) {
+    throw new ValidationError("Please pass an id as parameter.");
+  }
+
+  await deleteContact(param.data.id);
+  return res.status(204);
+});
+
 /* 
 const getContactsHandler = asyncHandler(async (_req: Request, res: Response) => {
   const contacts = await getContacts();
@@ -107,4 +156,6 @@ const getManagementContactsHandler = asyncHandler(async (_req: Request, res: Res
 export {
   createContactHandler,
   getContactsHandler,
+  updateContactHandler,
+  deleteContactHandler,
 };

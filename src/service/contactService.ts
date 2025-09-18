@@ -14,7 +14,7 @@ const createContact = async (name: string, email: string, phone: string, type: C
   return contact;
 };
 
-const getContacts = async (type: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER" | undefined) => {
+const getContacts = async (type?: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER") => {
   const contacts = await prisma.contact.findMany({
     where: type ? { type: type as ContactType } : {},
   });
@@ -25,7 +25,40 @@ const getContacts = async (type: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER" 
   return contacts;
 };
 
+const updateContact = async (
+  id: number,
+  name?: string,
+  email?: string,
+  phone?: string,
+  type?: "ADMIN" | "STUDENT" | "MANAGEMENT" | "TEACHER") => {
+
+  const dataToUpdate: Record<string, any> = {};
+
+  if (name) dataToUpdate.name = name;
+  if (email) dataToUpdate.email = email;
+  if (phone) dataToUpdate.phone = phone;
+  if (type) dataToUpdate.type = type;
+
+  const contacts = await prisma.contact.update({
+    data: dataToUpdate,
+    where: {
+      id
+    },
+  });
+  return contacts;
+};
+
+const deleteContact = async (id: number) => {
+  await prisma.contact.delete({
+    where: {
+      id,
+    },
+  });
+};
+
 export {
   createContact,
   getContacts,
+  updateContact,
+  deleteContact,
 };
