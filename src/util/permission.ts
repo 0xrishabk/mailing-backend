@@ -5,7 +5,6 @@ export const Permission = {
   CreateUser: 1 << 3,
   UpdateUser: 1 << 4,
   DeleteUser: 1 << 5,
-  Student: 1 << 0,
   Teacher: (1 << 0) | (1 << 1),
   Management: (1 << 0) | (1 << 1) | (1 << 2),
   Admin: (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5),

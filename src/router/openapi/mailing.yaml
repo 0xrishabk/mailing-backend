@@ -1,0 +1,68 @@
+paths:
+  /api/mailing:
+    get:
+      tags: [Mailing]
+      summary: List mailings
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mailing'
+
+  /api/mailing/send:
+    post:
+      tags: [Mailing]
+      summary: Send a mailing
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                body:
+                  type: string
+                recipients:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - subject
+                - body
+      responses:
+        '200':
+          description: Sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailing'
+
+  /api/mailing/{id}:
+    get:
+      tags: [Mailing]
+      summary: Get mailing by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mailing'

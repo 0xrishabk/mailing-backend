@@ -88,6 +88,7 @@ enum ContactType {
   STUDENT
   TEACHER
   MANAGEMENT
+  ADMIN
 }
 
 // model ContactStudents {

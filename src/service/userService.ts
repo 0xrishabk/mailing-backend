@@ -21,6 +21,27 @@ const getUsers = async () => {
   return users;
 };
 
+const getUserByEmail = async (email: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!user) {
+    throw new NotFoundError("No user found.");
+  }
+
+  return user;
+}
+
 const getUser = async (id: string) => {
   const user = await prisma.user.findFirst({
     where: {
@@ -36,7 +57,7 @@ const getUser = async (id: string) => {
   });
 
   if (!user) {
-    throw new ValidationError("No user found.");
+    throw new NotFoundError("No user found.");
   }
   return user;
 };
@@ -104,7 +125,7 @@ const updatePassword = async (id: string, currentPassword: string, newPassword: 
     throw new NotFoundError("Invalid user.")
   }
 
-  if (!comparePassword(currentPassword, user.password)) {
+  if (!await comparePassword(currentPassword, user.password)) {
     throw new ValidationError("Current password is incorrect.");
   }
   const hashedPassword = await hashPassword(newPassword);
@@ -133,7 +154,7 @@ const loginUser = async (email: string, inputPassword: string) => {
     throw new ValidationError("Invalid email or password.");
   }
 
-  if (!comparePassword(inputPassword, user.password)) {
+  if (!await comparePassword(inputPassword, user.password)) {
     throw new ValidationError("Invalid email or password.");
   }
 
@@ -171,4 +192,4 @@ const deleteUser = async (id: string) => {
   }
 };
 
-export { getUsers, getUser, createUser, loginUser, updateUsername, updateEmail, updatePassword, deleteUser };
+export { getUsers, getUser, getUserByEmail, createUser, loginUser, updateUsername, updateEmail, updatePassword, deleteUser };

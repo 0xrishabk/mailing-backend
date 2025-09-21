@@ -1,0 +1,109 @@
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        displayName:
+          type: string
+        email:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - username
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        expiresIn:
+          type: integer
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        type:
+          type: string
+          description: one of GENERAL, STUDENT, TEACHER, MANAGEMENT
+      required:
+        - id
+        - name
+    Mailing:
+      type: object
+      properties:
+        id:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+        recipients:
+          type: array
+          items:
+            type: string
+        sentAt:
+          type: string
+          format: date-time
+    Batch:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    Faculty:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        department:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+tags:
+  - name: Batches
+    description: Batch CRUD
+  - name: Users
+    description: User/Auth Operation
+  - name: Contacts
+    description: Contacts CRUD
+  - name: Faculty
+    description: Faculty CRUD
+  - name: Mailing
+    description: Mailing Operation

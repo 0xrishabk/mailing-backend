@@ -33,13 +33,17 @@ import { authenticateJwt, hasPermission } from './middleware/authHandler.js';
 // Permission UTIL
 import { Permission } from './util/permission.js';
 
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/batch", authenticateJwt, hasPermission([Permission.Admin, Permission.Management]), batchRoutes);
 app.use("/api/contact", authenticateJwt, hasPermission([Permission.Management]), contactRoutes);
 app.use("/api/faculty", authenticateJwt, hasPermission([Permission.Admin, Permission.Management]), facultyRoutes);
 app.use("/api/mail", authenticateJwt, hasPermission([Permission.Mail]), mailRoutes);
 
 app.use(errorHandler);
+
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from './swagger.js';
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 console.log(`====== LISTENING TO SERVER ======`);
 console.log(`http://127.0.0.1:3000`);

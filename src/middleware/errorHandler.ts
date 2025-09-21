@@ -3,11 +3,11 @@ import type { ApiResponse } from "../model/ResponseModel.js";
 import { AppError } from "../errors/AppError.js";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
-export const errorHandler = (
+export const errorHandler = async (
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) => {
   if (err instanceof AppError) {
     const response: ApiResponse = {

@@ -75,7 +75,7 @@ const updateContactHandler = asyncHandler(async (req: Request, res: Response) =>
     email: z.email().optional(),
     phone: z.string().optional(),
     type: z.enum(['STUDENT', 'TEACHER', 'MANAGEMENT', 'ADMIN']).optional()
-  }).safeDecode(req.body);
+  }).safeParse(req.body);
 
   if (!body.success) {
     throw new ValidationError("Provide valid input data.");
@@ -105,7 +105,7 @@ const deleteContactHandler = asyncHandler(async (req: Request, res: Response) =>
   }
 
   await deleteContact(param.data.id);
-  return res.status(204);
+  return res.sendStatus(204);
 });
 
 /* 

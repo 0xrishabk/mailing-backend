@@ -1,0 +1,84 @@
+paths:
+  /api/faculty:
+    get:
+      tags: [Faculty]
+      summary: List faculties
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Faculty'
+    post:
+      tags: [Faculty]
+      summary: Create faculty
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+      responses:
+        '201':
+          description: Created
+
+  /api/faculty/{id}:
+    get:
+      tags: [Faculty]
+      summary: Get faculty by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faculty'
+    put:
+      tags: [Faculty]
+      summary: Update faculty
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faculty'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Faculty]
+      summary: Delete faculty
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: No Content

@@ -3,8 +3,18 @@ import type { ApiResponse } from "../model/ResponseModel.js";
 import { createUserSchema, deleteUserSchema, loginUserSchema } from "../model/UserModel.js";
 import { ValidationError } from "../errors/AppError.js";
 import { asyncHandler } from "../util/asyncHandler.js";
-import { getUser, createUser, deleteUser, loginUser, getUsers, updateUsername, updateEmail, updatePassword } from "../service/userService.js";
-import z from "zod";
+import {
+  getUser,
+  createUser,
+  deleteUser,
+  loginUser,
+  getUsers,
+  updateUsername,
+  updateEmail,
+  updatePassword,
+  getUserByEmail
+} from "../service/userService.js";
+import z, { email } from "zod";
 import type { AuthRequest } from "../model/RequestResponseModel.js";
 
 const getUsersHandler = asyncHandler(async (_req: AuthRequest, res: Response) => {
@@ -13,6 +23,24 @@ const getUsersHandler = asyncHandler(async (_req: AuthRequest, res: Response) =>
     success: true,
     message: "Successfully fetched users.",
     data: users,
+    timestamp: new Date().toISOString(),
+  };
+  return res.status(200).json(response);
+});
+
+const getUserByEmailHandler = asyncHandler(async (req: AuthRequest, res: Response) => {
+  const result = z.object({
+    email: z.email()
+  }).safeParse(req.params);
+
+  if (!result.success) {
+    throw new ValidationError("Invalid parameter (email)");
+  }
+  const user = await getUserByEmail(result.data.email);
+  const response: ApiResponse = {
+    success: true,
+    message: "Successfully fetched user.",
+    data: user,
     timestamp: new Date().toISOString(),
   };
   return res.status(200).json(response);
@@ -41,7 +69,6 @@ const createUserHandler = asyncHandler(async (req: AuthRequest, res: Response) =
   if (!result.success) {
     throw new ValidationError("Invalid input data to create user. Please ensure inputs are valid.");
   }
-
   const { username, email, inputPassword } = result.data;
 
   const user = await createUser(username, email, inputPassword);
@@ -86,14 +113,14 @@ const updateUserHandler = asyncHandler(async (req: Request, res: Response) => {
     (currentPassword == undefined || currentPassword == "") && (newPassword == undefined || newPassword == "")) {
     throw new ValidationError("Please provide an input body.");
   }
-  if (username != undefined || username != "") {
+  if (username != undefined && username != "") {
     await updateUsername(id, username as string);
   }
-  if (email != undefined || email != "") {
+  if (email != undefined && email != "") {
     await updateEmail(id, email as string);
   }
-  if (currentPassword != undefined || currentPassword != "") {
-    if (newPassword == undefined || newPassword == "") {
+  if (currentPassword != undefined && currentPassword != "") {
+    if (newPassword == undefined && newPassword == "") {
       throw new ValidationError("Please supply new password.");
     }
     await updatePassword(id, currentPassword as string, newPassword as string);
@@ -126,6 +153,7 @@ const deleteUserHandler = asyncHandler(async (req: Request, res: Response) => {
 export {
   getUsersHandler,
   getUserHandler,
+  getUserByEmailHandler,
   createUserHandler,
   loginUserHandler,
   updateUserHandler,
