@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import type { ApiResponse } from "../model/ResponseModel.js";
-import { createUserSchema, deleteUserSchema, loginUserSchema } from "../model/UserModel.js";
 import { ValidationError } from "../errors/AppError.js";
 import { asyncHandler } from "../util/asyncHandler.js";
 import {
