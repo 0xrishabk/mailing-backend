@@ -65,7 +65,11 @@ const getUserHandler = asyncHandler(async (req: AuthRequest, res: Response) => {
 });
 
 const createUserHandler = asyncHandler(async (req: AuthRequest, res: Response) => {
-  const result = createUserSchema.safeParse(req.body);
+  const result = z.object({
+    username: z.string().min(3),
+    email: z.email(),
+    inputPassword: z.string().min(6),
+  }).safeParse(req.body);
   if (!result.success) {
     throw new ValidationError("Invalid input data to create user. Please ensure inputs are valid.");
   }
@@ -82,7 +86,10 @@ const createUserHandler = asyncHandler(async (req: AuthRequest, res: Response) =
 });
 
 const loginUserHandler = asyncHandler(async (req: Request, res: Response) => {
-  const result = loginUserSchema.safeParse(req.body);
+  const result = z.object({
+    email: z.email(),
+    inputPassword: z.string().min(6),
+  }).safeParse(req.body);
   if (!result.success) {
     throw new ValidationError("Invalid email or password.");
   }
@@ -141,7 +148,9 @@ const updateUserHandler = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const deleteUserHandler = asyncHandler(async (req: Request, res: Response) => {
-  const result = deleteUserSchema.safeParse(req.params);
+  const result = z.object({
+    id: z.uuid(),
+  }).safeParse(req.params);
   if (!result.success) {
     throw new ValidationError("Invalid USERID must be an UUID.");
   }
