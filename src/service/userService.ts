@@ -163,16 +163,18 @@ const loginUser = async (email: string, inputPassword: string) => {
     sub: user.id,
     aud: "mailing-app",
     iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 15,
+    exp: Math.floor(Date.now() / 1000) + 60 * 30,
     access: 4,
     email: user.email,
     username: user.username,
   };
-  const token = signJwt(payload);
+
+  const accessToken = signJwt(payload);
+  const refreshToken = signJwt({ ...payload, exp: Math.floor(Date.now() / 1000) + 60 * 5 });
 
   const { password, ...safeUser } = user;
 
-  return { ...safeUser, token };
+  return { accessToken, refreshToken, ...safeUser };
 };
 
 const deleteUser = async (id: string) => {

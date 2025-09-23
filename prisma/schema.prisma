@@ -135,7 +135,8 @@ model MailRecipient {
 
 model Token {
   id Int @id @default(autoincrement())
-  token String @unique
+  accessToken String @unique
+  refreshToken String @unique
   isValid Boolean @default(true)
 
   createdAt DateTime @default(now())
