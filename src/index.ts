@@ -39,11 +39,11 @@ app.use("/api/contact", authenticateJwt, hasPermission([Permission.Management]),
 app.use("/api/faculty", authenticateJwt, hasPermission([Permission.Admin, Permission.Management]), facultyRoutes);
 app.use("/api/mail", authenticateJwt, hasPermission([Permission.Mail]), mailRoutes);
 
-app.use(errorHandler);
-
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from './swagger.js';
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(errorHandler);
 
 console.log(`====== LISTENING TO SERVER ======`);
 console.log(`http://127.0.0.1:3000`);

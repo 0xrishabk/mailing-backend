@@ -1,7 +1,3 @@
-tags:
-  - name: Batches
-    description: Batch CRUD
-
 paths:
   /api/batches:
     get:
