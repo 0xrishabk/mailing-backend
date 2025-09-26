@@ -31,8 +31,8 @@ export const PermissionUtil = {
 
   list(userPerms: number): string[] {
     return Object.entries(Permission)
-      .filter(([_key, value]) => typeof value === "number")
-      .filter(([_key, value]) => (userPerms & value) === value)
-      .map(([key, _value]) => key);
+      .filter(([, value]) => typeof value === "number")
+      .filter(([, value]) => (userPerms & value) === value)
+      .map(([key,]) => key);
   },
 };
