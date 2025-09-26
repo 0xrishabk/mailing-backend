@@ -173,7 +173,7 @@ const loginUser = async (email: string, inputPassword: string) => {
   const refreshToken = signJwt({ ...payload, exp: Math.floor(Date.now() / 1000) + 60 * 5 });
 
   const { password, ...safeUser } = user;
-
+  void password; // make eslint happy :D
   return { accessToken, refreshToken, ...safeUser };
 };
 
@@ -184,7 +184,7 @@ const deleteUser = async (id: string) => {
         id,
       },
     });
-  } catch (err: any) {
+  } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       if (err.code == 'P2025') {
         throw new NotFoundError("User not found.");
