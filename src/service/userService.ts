@@ -1,6 +1,6 @@
 import prisma from "../database/prisma.js"
 import { NotFoundError, ValidationError } from "../errors/AppError.js";
-import { Prisma } from "../generated/prisma/index.js";
+import { Prisma } from "@prisma/client";
 import { comparePassword, hashPassword } from "../util/password.js"
 import type { LoginPayload } from "../model/JwtPayloadModel.js";
 import { signJwt } from "../util/jwt.js";
