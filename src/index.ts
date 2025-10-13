@@ -2,8 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-// Load all the environment variables.
-dotenv.config();
+dotenv.config()
 
 // Initialize express.
 const app = express();

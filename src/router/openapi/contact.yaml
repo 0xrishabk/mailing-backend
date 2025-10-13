@@ -1,3 +1,7 @@
+openapi: 3.0.3
+info:
+  title: Mailing Backend API Testing
+  version: 1.0.0
 paths:
   /api/contacts:
     get:
@@ -6,14 +10,14 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Contact'
+                  $ref: "#/components/schemas/Contact"
     post:
       tags: [Contacts]
       summary: Create contact
@@ -24,9 +28,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Contact'
+              $ref: "#/components/schemas/Contact"
       responses:
-        '201':
+        "201":
           description: Created
 
   /api/contacts/{id}:
@@ -42,12 +46,12 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Contact'
+                $ref: "#/components/schemas/Contact"
     put:
       tags: [Contacts]
       summary: Update contact
@@ -64,9 +68,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Contact'
+              $ref: "#/components/schemas/Contact"
       responses:
-        '200':
+        "200":
           description: Updated
     delete:
       tags: [Contacts]
@@ -80,5 +84,6 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '204':
+        "204":
           description: No Content
+
