@@ -17,20 +17,20 @@ app.use((_req: express.Request, res: express.Response, next: express.NextFunctio
 });
 
 // Router import
-import userRoutes from './router/userRouter.js';
-import mailRoutes from './router/mailingRouter.js';
-import contactRoutes from './router/contactRouter.js';
-import batchRoutes from './router/batchRouter.js';
-import facultyRoutes from './router/facultyRouter.js';
+import userRoutes from './router/userRouter';
+import mailRoutes from './router/mailingRouter';
+import contactRoutes from './router/contactRouter';
+import batchRoutes from './router/batchRouter';
+import facultyRoutes from './router/facultyRouter';
 
 // Error handler
-import { errorHandler } from './middleware/errorHandler.js';
+import { errorHandler } from './middleware/errorHandler';
 
 // Authentication Middleware
-import { authenticateJwt, hasPermission } from './middleware/authHandler.js';
+import { authenticateJwt, hasPermission } from './middleware/authHandler';
 
 // Permission UTIL
-import { Permission } from './util/permission.js';
+import { Permission } from './util/permission';
 
 app.use("/api/users", userRoutes);
 app.use("/api/batch", authenticateJwt, hasPermission([Permission.Admin, Permission.Management]), batchRoutes);
@@ -39,7 +39,7 @@ app.use("/api/faculty", authenticateJwt, hasPermission([Permission.Admin, Permis
 app.use("/api/mail", authenticateJwt, hasPermission([Permission.Mail]), mailRoutes);
 
 import swaggerUi from "swagger-ui-express";
-import swaggerSpec from './swagger.js';
+import swaggerSpec from './swagger';
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(errorHandler);

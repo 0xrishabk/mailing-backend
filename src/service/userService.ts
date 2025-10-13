@@ -1,9 +1,9 @@
-import prisma from "../database/prisma.js"
-import { NotFoundError, ValidationError } from "../errors/AppError.js";
+import prisma from "../database/prisma"
+import { NotFoundError, ValidationError } from "../errors/AppError";
 import { Prisma } from "@prisma/client";
-import { comparePassword, hashPassword } from "../util/password.js"
-import type { LoginPayload } from "../model/JwtPayloadModel.js";
-import { signJwt } from "../util/jwt.js";
+import { comparePassword, hashPassword } from "../util/password"
+import type { LoginPayload } from "../model/JwtPayloadModel";
+import { signJwt } from "../util/jwt";
 
 const getUsers = async () => {
   const users = await prisma.user.findMany({

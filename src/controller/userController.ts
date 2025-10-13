@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import type { ApiResponse } from "../model/ResponseModel.js";
-import { ValidationError } from "../errors/AppError.js";
-import { asyncHandler } from "../util/asyncHandler.js";
+import type { ApiResponse } from "../model/ResponseModel";
+import { ValidationError } from "../errors/AppError";
+import { asyncHandler } from "../util/asyncHandler";
 import {
   getUser,
   createUser,
@@ -12,9 +12,9 @@ import {
   updateEmail,
   updatePassword,
   getUserByEmail
-} from "../service/userService.js";
+} from "../service/userService";
 import z, { email } from "zod";
-import type { AuthRequest } from "../model/RequestResponseModel.js";
+import type { AuthRequest } from "../model/RequestResponseModel";
 
 const getUsersHandler = asyncHandler(async (_req: AuthRequest, res: Response) => {
   const users = await getUsers();

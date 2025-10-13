@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"
-import type { LoginPayload } from "../model/JwtPayloadModel.js"
+import type { LoginPayload } from "../model/JwtPayloadModel"
 import type { Response, NextFunction } from "express";
-import { AppError, AuthError, NotFoundError } from "../errors/AppError.js";
-import type { AuthRequest } from "../model/RequestResponseModel.js";
-import prisma from "../database/prisma.js";
-import { Permission, PermissionUtil } from "../util/permission.js";
+import { AppError, AuthError, NotFoundError } from "../errors/AppError";
+import type { AuthRequest } from "../model/RequestResponseModel";
+import prisma from "../database/prisma";
+import { Permission, PermissionUtil } from "../util/permission";
 
 export const hasPermission = (permission: Permission[]) => {
   return async (req: AuthRequest, _res: Response, next: NextFunction) => {

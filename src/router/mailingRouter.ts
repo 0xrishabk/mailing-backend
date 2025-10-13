@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getMailsHandler, sendMailHandler } from '../controller/mailingController.js';
-import { authenticateJwt, hasPermission } from '../middleware/authHandler.js';
-import { Permission } from '../util/permission.js';
+import { getMailsHandler, sendMailHandler } from '../controller/mailingController';
+import { authenticateJwt, hasPermission } from '../middleware/authHandler';
+import { Permission } from '../util/permission';
 
 const router = Router();
 

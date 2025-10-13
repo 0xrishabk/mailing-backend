@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import prisma from "../database/prisma.js";
-import type { LoginPayload } from "../model/JwtPayloadModel.js";
+import prisma from "../database/prisma";
+import type { LoginPayload } from "../model/JwtPayloadModel";
 
 const signJwt = (payload: LoginPayload): string => {
   const key = process.env.JWT_SECRET;

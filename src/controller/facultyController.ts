@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../util/asyncHandler.js";
-import { createFaculty, getFaculties } from "../service/facultyService.js";
-import type { ApiResponse } from "../model/ResponseModel.js";
+import { asyncHandler } from "../util/asyncHandler";
+import { createFaculty, getFaculties } from "../service/facultyService";
+import type { ApiResponse } from "../model/ResponseModel";
 import z from "zod";
-import { ValidationError } from "../errors/AppError.js";
+import { ValidationError } from "../errors/AppError";
 
 const getFacultiesHandler = asyncHandler(async (_req: Request, res: Response) => {
   const faculties = await getFaculties();

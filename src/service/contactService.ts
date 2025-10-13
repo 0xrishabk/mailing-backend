@@ -1,6 +1,6 @@
-import prisma from "../database/prisma.js";
+import prisma from "../database/prisma";
 import { ContactType } from "@prisma/client";
-import { NotFoundError } from "../errors/AppError.js";
+import { NotFoundError } from "../errors/AppError";
 
 const createContact = async (name: string, email: string, phone: string, type: ContactType) => {
   const contact = await prisma.contact.create({

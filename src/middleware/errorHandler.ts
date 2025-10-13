@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
-import type { ApiResponse } from "../model/ResponseModel.js";
-import { AppError } from "../errors/AppError.js";
+import type { ApiResponse } from "../model/ResponseModel";
+import { AppError } from "../errors/AppError";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export const errorHandler = async (

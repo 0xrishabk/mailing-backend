@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createBatchHandler, getBatchesHandler } from '../controller/batchController.js';
+import { createBatchHandler, getBatchesHandler } from '../controller/batchController';
 
 const router = Router();
 

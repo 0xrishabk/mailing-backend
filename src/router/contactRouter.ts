@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from 'express';
-import { createContactHandler, deleteContactHandler, getContactsHandler, updateContactHandler } from '../controller/contactController.js';
+import { createContactHandler, deleteContactHandler, getContactsHandler, updateContactHandler } from '../controller/contactController';
 const router = Router();
 
 router.get('/', getContactsHandler);

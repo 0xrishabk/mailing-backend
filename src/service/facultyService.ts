@@ -1,5 +1,5 @@
-import prisma from "../database/prisma.js"
-import { NotFoundError } from "../errors/AppError.js";
+import prisma from "../database/prisma"
+import { NotFoundError } from "../errors/AppError";
 
 const getFaculties = async () => {
   const faculties = await prisma.faculty.findMany();

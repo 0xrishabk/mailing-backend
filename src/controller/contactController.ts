@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../util/asyncHandler.js";
-import type { ApiResponse } from "../model/ResponseModel.js";
+import { asyncHandler } from "../util/asyncHandler";
+import type { ApiResponse } from "../model/ResponseModel";
 import {
   getContacts,
   createContact,
   updateContact,
   deleteContact
-} from "../service/contactService.js";
+} from "../service/contactService";
 import z from "zod";
-import { ValidationError } from "../errors/AppError.js";
+import { ValidationError } from "../errors/AppError";
 import { ContactType } from "@prisma/client";
 
 const createContactHandler = asyncHandler(async (req: Request, res: Response) => {

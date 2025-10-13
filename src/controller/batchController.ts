@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../util/asyncHandler.js";
+import { asyncHandler } from "../util/asyncHandler";
 import z from "zod";
-import { createBatch, getBatches } from "../service/batchService.js";
-import type { ApiResponse } from "../model/ResponseModel.js";
-import { ValidationError } from "../errors/AppError.js";
+import { createBatch, getBatches } from "../service/batchService";
+import type { ApiResponse } from "../model/ResponseModel";
+import { ValidationError } from "../errors/AppError";
 
 const getBatchesHandler = asyncHandler(async (_req: Request, res: Response) => {
   const batches = await getBatches();

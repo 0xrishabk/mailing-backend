@@ -1,8 +1,8 @@
 import type { Request, Response } from "express"
 import z from "zod"
-import { ValidationError } from "../errors/AppError.js";
-import type { ApiResponse } from "../model/ResponseModel.js";
-import { getMails, sendMail } from "../service/mailingService.js";
+import { ValidationError } from "../errors/AppError";
+import type { ApiResponse } from "../model/ResponseModel";
+import { getMails, sendMail } from "../service/mailingService";
 
 const sendMailHandler = async (req: Request, res: Response) => {
   const result = z.object({
