@@ -2,7 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 // Initialize express.
 const app = express();
